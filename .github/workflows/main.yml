@@ -3,11 +3,11 @@ name: Deploy on production
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     types: [closed]
     branches:
-      - main
+      - master
 
 jobs:
   build:
