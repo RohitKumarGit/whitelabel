@@ -1,0 +1,83 @@
+name: Unit Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - develop # Change this to your main branch name, if different
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x" # Replace 'x' with your desired Python version (e.g., '3.8', '3.9')
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Adjust this based on your project's requirements file
+
+      - name: Check for valid Python & Merge Conflicts
+        run: |
+          python -m compileall -q -f "${GITHUB_WORKSPACE}"
+          if grep -lr --exclude-dir=node_modules "^<<<<<<< " "${GITHUB_WORKSPACE}"
+          then
+            echo "Found merge conflicts"
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          check-latest: true
+
+      - name: Add to Hosts
+        run: |
+          echo "127.0.0.1 test_site" | sudo tee -a /etc/hosts
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/*requirements.txt', '**/pyproject.toml', '**/setup.py') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        run: |
+          bash ${GITHUB_WORKSPACE}/.github/helper/install_dependencies.sh
+          bash ${GITHUB_WORKSPACE}/.github/helper/install.sh
+        env:
+          BEFORE: ${{ env.GITHUB_EVENT_PATH.before }}
+          AFTER: ${{ env.GITHUB_EVENT_PATH.after }}
+          TYPE: server
+          DB: ${{ matrix.db }}
+
+      - name: Run Tests
+        run: |
+          ls
+        env:
+          SITE: test_site
+          CI_BUILD_ID: ${{ github.run_id }}
+          BUILD_NUMBER: ${{ matrix.container }}
+          TOTAL_BUILDS: 2
