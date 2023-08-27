@@ -22,8 +22,7 @@
   "whitelabel_app_name",
   "column_break_7",
   "custom_navbar_title",
-  "custom_navbar_title_style",
-  "demo_date"
+  "custom_navbar_title_style"
  ],
  "fields": [
   {
@@ -71,11 +70,6 @@
    "fieldname": "custom_navbar_title_style",
    "fieldtype": "Code",
    "label": "Navbar Title Style"
-  },
-  {
-   "fieldname": "demo_date",
-   "fieldtype": "Date",
-   "label": "Demo Date"
   },
   {
    "fieldname": "whitelabel_setting_section",
@@ -128,7 +122,7 @@
  ],
  "issingle": 1,
  "links": [],
- "modified": "2022-04-20 11:28:44.618584",
+ "modified": "2022-04-20 11:27:44.618584",
  "modified_by": "Administrator",
  "module": "Whitelabel",
  "name": "Whitelabel Setting",
