@@ -6,11 +6,11 @@ from . import __logo__ as app_logo
 
 app_name = "whitelabel"
 app_title = "Whitelabel"
-app_publisher = "Bhavesh Maheshwari"
+app_publisher = "Abhishek Chougule"
 app_description = "ERPNext Whitelabel"
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
-app_email = "maheshwaribhavesh95863@gmail.com"
+app_email = "abhishek.c@onehash.ai"
 app_license = "MIT"
 app_logo_url = "/assets/whitelabel/images/whitelabel_logo.svg"
 
