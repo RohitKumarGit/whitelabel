@@ -10,10 +10,7 @@ def whitelabel_patch():
 	#update Welcome Blog Post
 	if frappe.db.exists("Blog Post", "Welcome"):
 		frappe.db.set_value("Blog Post","Welcome","content","")
-
-def get_frappe_version():
-	return frappe.db.get_value("Installed Application",{"app_name":"frappe"},"app_version").split('.')[0]
-
+	
 def boot_session(bootinfo):
 	"""boot session - send website info if guest"""
 	if frappe.session['user']!='Guest':
