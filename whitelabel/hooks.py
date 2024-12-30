@@ -12,7 +12,7 @@ app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "maheshwaribhavesh95863@gmail.com"
 app_license = "MIT"
-app_logo_url = '/assets/whitelabel/images/whitelabel_logo.svg'
+# app_logo_url = "/assets/whitelabel/images/whitelabel_logo.svg"
 
 # Includes in <head>
 # ------------------
@@ -64,7 +64,7 @@ after_migrate = ['whitelabel.api.whitelabel_patch']
 # ------------
 
 # before_install = "whitelabel.install.before_install"
-after_install = "whitelabel.install.after_install"
+# after_install = "whitelabel.install.after_install"
 
 # Desk Notifications
 # ------------------
