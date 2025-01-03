@@ -14,7 +14,6 @@ def whitelabel_patch():
 	update_field_label()
 	brand_name = frappe.get_hooks("brand_name")[0]
 	update_onboard_details(brand_name)
-	update_system_settings(brand_name)
 	update_website_settings(brand_name)
 	
 def boot_session(bootinfo):
@@ -30,9 +29,6 @@ def ignore_update_popup():
 def update_field_label():
 	"""Update label of section break in employee doctype"""
 	frappe.db.sql("""Update `tabDocField` set label='OneHash' where fieldname='erpnext_user' and parent='Employee'""")
-
-def update_system_settings(brand_name):
-	frappe.db.set_value("System Settings", "System Settings", "otp_issuer_name", brand_name)
 
 def update_website_settings(brand_name):
 	frappe.db.set_value("Website Settings", "Website Settings", "app_name", brand_name)
