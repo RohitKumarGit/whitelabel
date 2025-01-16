@@ -32,8 +32,8 @@ def update_field_label():
 	frappe.db.sql("""Update `tabDocField` set label='OneHash' where fieldname='erpnext_user' and parent='Employee'""")
 
 def update_website_settings(brand_name):
-	website_settings = frappe.get_doc("Website Settings", "Website Settings")
-	website_settings.db_set("app_name", brand_name, commit=True)
+	frappe.db.set_value("Website Settings", "Website Settings", "app_name", brand_name)
+	frappe.db.commit()
 
 def update_system_settings(brand_name):
 	frappe.db.set_value("System Settings", "System Settings", "otp_issuer_name", brand_name)
