@@ -62,6 +62,8 @@ def update_onboard_steps(brand_name):
 		if doc.description:
 			doc.description = re.sub("ERPNext", brand_name, doc.description)
 		doc.intro_video_url = ""
+		if doc.title == "Introduction to Website":
+			doc.video_url = ""
 		doc.flags.ignore_mandatory = True
 		doc.save(ignore_permissions = True)
 
